@@ -85,9 +85,10 @@ xmltv_dtd = os.path.join(datapath, 'xmltv.dtd')
 
 
 def copy_guide_to_destination():
-    done = tools.copy(guide_temp, guide_dest)
+    done = tools.comp(guide_temp, guide_dest)
     if done:
         try:
+        	tools.delete(guide_temp)
             ## Write new setting last_download
             with open(grabber_cron, 'r', encoding='utf-8') as f:
                 data = json.load(f)

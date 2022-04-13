@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, gzip
 
 addon_name = "Takealug EPG Grabber"
 addon_version = "1.1.3+matrix"
@@ -24,6 +24,14 @@ def log(message):
 def copy(source, destination):
 	try:
 		shutil.copyfile(source, destination)
+		return True
+	except:
+		return False
+		
+def comp(source, destination):
+	try:
+		with open(source, 'rb') as f_in, gzip.open(destination+".gz", 'wb') as f_out:
+			f_out.writelines(f_in)
 		return True
 	except:
 		return False
