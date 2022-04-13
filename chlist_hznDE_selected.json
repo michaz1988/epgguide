@@ -1,0 +1,13 @@
+{
+    "channellist": [
+        {
+            "contentId": "lgi-obolite-de-prod-master:SV_09999_58109",
+            "name": "Silverline Movie Channel",
+            "pictures": [
+                {
+                    "href": "http://staticqbr-de-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/n_silverline.SV_09999_58109.png?style=content-station-logo-large"
+                }
+            ]
+        }
+    ]
+}

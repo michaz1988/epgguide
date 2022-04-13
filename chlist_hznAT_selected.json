@@ -1,0 +1,184 @@
+{
+    "channellist": [
+        {
+            "contentId": "lgi-at-prodobo-master:fix___foxi",
+            "name": "Fix & Foxi",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/3044.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:gotv",
+            "name": "gotv",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1057.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:ORF2_Europa",
+            "name": "ORF 2 EUROPE",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/4914.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:ORF_eins",
+            "name": "ORF 1",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1006.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:ATV",
+            "name": "ATV",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1013.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:PULS_4",
+            "name": "PULS 4",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7089.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:Servus_TV",
+            "name": "Servus TV",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7115.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:ORF_III",
+            "name": "ORF III",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/3042.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:ATV_II",
+            "name": "ATV2",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7053.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:PULS24",
+            "name": "PULS24",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/2061.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:Sat_1_Gold",
+            "name": "Sat.1 Gold",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/4647.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:ORF_Sport_",
+            "name": "ORF Sport+",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7079.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:BR",
+            "name": "BR Fernsehen",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1031.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:WDR",
+            "name": "WDR Fernsehen",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1027.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:MDR",
+            "name": "MDR Fernsehen",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1020.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:SWR",
+            "name": "SWR Fernsehen",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1029.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:NDR",
+            "name": "NDR Fernsehen",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1011.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:hessen_fernsehen",
+            "name": "HR",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1017.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:RBB_Fernsehen",
+            "name": "RBB Fernsehen",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1018.f.png?style=content-station-logo-large"
+                }
+            ]
+        },
+        {
+            "contentId": "lgi-at-prodobo-master:Nickelodeon",
+            "name": "Nick",
+            "pictures": [
+                {
+                    "href": "https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/8458.f.png?style=content-station-logo-large"
+                }
+            ]
+        }
+    ]
+}
