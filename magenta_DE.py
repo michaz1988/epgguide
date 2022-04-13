@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import xbmc, xbmcaddon, xbmcgui
 import json, tools,time
 import os
 import sys
@@ -9,15 +8,12 @@ import requests
 from datetime import datetime
 from datetime import timedelta
 import xml_structure
-import channel_selector
 import mapper
 import filesplit
 from tools import datapath, temppath, log, notify, addon_name, addon_version, loc
 
 provider = 'MAGENTA TV (DE)'
 lang = 'de'
-
-ADDON = xbmcaddon.Addon(id="service.takealug.epg-grabber")
 provider_temppath = os.path.join(temppath, "magentaDE")
 
 ## Enable Multithread
@@ -45,9 +41,6 @@ days_to_grab = 7
 episode_format = "onscreen"
 channel_format = 'provider'
 genre_format = "provider"
-
-# Make OSD Notify Messages
-OSD = xbmcgui.Dialog()
 
 def get_epgLength(days_to_grab):
     # Calculate Date and Time
@@ -160,7 +153,6 @@ def select_channels():
 
     ## Download chlist_magenta_provider.json
     get_channellist()
-    dialog = xbmcgui.Dialog()
 
     with open(magentaDE_chlist_provider, 'r', encoding='utf-8') as o:
         provider_list = json.load(o)
@@ -169,7 +161,7 @@ def select_channels():
         selected_list = json.load(s)
 
     ## Start Channel Selector
-    user_select = channel_selector.select_channels(provider, provider_list, selected_list)
+    user_select = True
 
     if user_select is not None:
         with open(magentaDE_chlist_selected, 'w', encoding='utf-8') as f:
@@ -179,9 +171,9 @@ def select_channels():
             if valid is True:
                 ok = dialog.ok(provider, loc(32402))
                 if ok:
-                    log(loc(32402), xbmc.LOGINFO)
+                    log(loc(32402))
             elif valid is False:
-                log(loc(32403), xbmc.LOGINFO)
+                log(loc(32403))
                 yn = OSD.yesno(provider, loc(32403))
                 if yn:
                     select_channels()
@@ -193,9 +185,9 @@ def select_channels():
         if valid is True:
             ok = dialog.ok(provider, loc(32404))
             if ok:
-                log(loc(32404), xbmc.LOGINFO)
+                log(loc(32404))
         elif valid is False:
-            log(loc(32403), xbmc.LOGINFO)
+            log(loc(32403))
             yn = OSD.yesno(provider, loc(32403))
             if yn:
                 select_channels()
@@ -232,9 +224,8 @@ def download_multithread(thread_temppath, download_threads):
         multi = True
         needed_threads = sum([len(files) for r, d, files in os.walk(thread_temppath)])
         items_to_download = str(len(selected_list['channellist']))
-        log('{} {} {} '.format(provider, items_to_download, loc(32361)), xbmc.LOGINFO)
-        pDialog = xbmcgui.DialogProgressBG()
-        log('{} Multithread({}) Mode'.format(provider, needed_threads), xbmc.LOGINFO)
+        log('{} {} {} '.format(provider, items_to_download, loc(32361)))
+        log('{} Multithread({}) Mode'.format(provider, needed_threads))
         notify('{} {} '.format(loc(32500), provider), '{} {}'.format('100', loc(32501)))
 
         jobs = []
@@ -256,15 +247,15 @@ def download_multithread(thread_temppath, download_threads):
                 percent_completed = int(100) * int(items) / int(items_to_download)
                 notify(int(percent_completed), '{} {} '.format(loc(32500), last_line), '{} {} {}'.format(int(percent_remain), loc(32501), provider))
                 if int(items) == int(items_to_download):
-                    log('{} {}'.format(provider, loc(32363)), xbmc.LOGINFO)
+                    log('{} {}'.format(provider, loc(32363)))
                     break
             j.join()
-        pDialog.close()
+        
         for file in os.listdir(thread_temppath): tools.delete(os.path.join(thread_temppath, file))
 
     else:
         multi = False
-        log('{} {} '.format(provider, 'Can`t download in Multithreading mode, loading single...'), xbmc.LOGINFO)
+        log('{} {} '.format(provider, 'Can`t download in Multithreading mode, loading single...'))
         download_thread(magentaDE_chlist_selected, multi, list, starttime, endtime)
 
 def download_thread(magentaDE_chlist_selected, multi, list, starttime, endtime):
@@ -282,8 +273,7 @@ def download_thread(magentaDE_chlist_selected, multi, list, starttime, endtime):
 
     if not multi:
         items_to_download = str(len(selected_list['channellist']))
-        log('{} {} {} '.format(provider, items_to_download, loc(32361)), xbmc.LOGINFO)
-        pDialog = xbmcgui.DialogProgressBG()
+        log('{} {} {} '.format(provider, items_to_download, loc(32361)))
         notify('{} {} '.format(loc(32500), provider), '{} {}'.format('100', loc(32501)))
 
     for user_item in selected_list['channellist']:
@@ -308,14 +298,14 @@ def download_thread(magentaDE_chlist_selected, multi, list, starttime, endtime):
             percent_completed = int(100) * int(items) / int(items_to_download)
             notify(int(percent_completed), '{} {} '.format(loc(32500), channel_name), '{} {} {}'.format(int(percent_remain), loc(32501), provider))
             if int(items) == int(items_to_download):
-                log('{} {}'.format(provider, loc(32363)), xbmc.LOGINFO)
+                log('{} {}'.format(provider, loc(32363)))
                 break
     if not multi:
-        pDialog.close()
+        
 
 
 def create_xml_channels():
-    log('{} {}'.format(provider,loc(32362)), xbmc.LOGINFO)
+    log('{} {}'.format(provider,loc(32362)))
     if channel_format == 'rytec':
         ## Save tkm_channels.json to Disk
         tkm_channels_response = requests.get(tkm_channels_url).json()
@@ -327,7 +317,7 @@ def create_xml_channels():
 
     items_to_download = str(len(selected_list['channellist']))
     items = 0
-    pDialog = xbmcgui.DialogProgressBG()
+
     notify('{} {} '.format(loc(32502),provider), '{} {}'.format('100',loc(32501)))
 
     ## Create XML Channels Provider information
@@ -342,7 +332,7 @@ def create_xml_channels():
         channel_id = channel_name
         notify(int(percent_completed), '{} {} '.format(loc(32502),channel_name),'{} {} {}'.format(int(percent_remain),loc(32501),provider))
         if str(percent_completed) == str(100):
-            log('{} {}'.format(provider,loc(32364)), xbmc.LOGINFO)
+            log('{} {}'.format(provider,loc(32364)))
 
         ## Map Channels
         if not channel_id == '':
@@ -350,13 +340,13 @@ def create_xml_channels():
 
         ## Create XML Channel Information with provided Variables
         xml_structure.xml_channels(channel_name, channel_id, channel_icon, lang)
-    pDialog.close()
+    
 
 
 def create_xml_broadcast(enable_rating_mapper, thread_temppath, download_threads):
 
     download_multithread(thread_temppath, download_threads)
-    log('{} {}'.format(provider, loc(32365)), xbmc.LOGINFO)
+    log('{} {}'.format(provider, loc(32365)))
 
     if genre_format == 'eit':
         ## Save tkm_genres.json to Disk
@@ -369,7 +359,6 @@ def create_xml_broadcast(enable_rating_mapper, thread_temppath, download_threads
 
     items_to_download = str(len(selected_list['channellist']))
     items = 0
-    pDialog = xbmcgui.DialogProgressBG()
     notify('{} {} '.format(loc(32503), provider), '{} Prozent verbleibend'.format('100'))
 
     ## Create XML Broadcast Provider information
@@ -384,7 +373,7 @@ def create_xml_broadcast(enable_rating_mapper, thread_temppath, download_threads
         channel_id = channel_name
         notify(int(percent_completed), '{} {} '.format(loc(32503), channel_name), '{} {} {}'.format(int(percent_remain), loc(32501), provider))
         if str(percent_completed) == str(100):
-            log('{} {}'.format(provider, loc(32366)), xbmc.LOGINFO)
+            log('{} {}'.format(provider, loc(32366)))
 
         broadcast_files = os.path.join(provider_temppath, '{}_broadcast.json'.format(contentID))
         with open(broadcast_files, 'r', encoding='utf-8') as b:
@@ -484,7 +473,7 @@ def create_xml_broadcast(enable_rating_mapper, thread_temppath, download_threads
 
         except (KeyError, IndexError):
             log('{} {} {} {} {} {}'.format(provider,loc(32367),channel_name,loc(32368),contentID,loc(32369)))
-    pDialog.close()
+    
 
     ## Create Channel Warnings Textile
     channel_pull = '\nPlease Create an Pull Request for Missing Rytec Id´s to https://github.com/sunsettrack4/config_files/blob/master/tkm_channels.json\n'
@@ -494,12 +483,12 @@ def create_xml_broadcast(enable_rating_mapper, thread_temppath, download_threads
     genre_pull = '\nPlease Create an Pull Request for Missing EIT Genres to https://github.com/sunsettrack4/config_files/blob/master/tkm_genres.json\n'
     mapper.create_genre_warnings(magentaDE_genres_warnings_tmp, magentaDE_genres_warnings, provider, genre_pull)
 
-    notify(addon_name, '{} {} {}'.format(loc(32370),provider,loc(32371)), icon=xbmcgui.NOTIFICATION_INFO)
-    log('{} {} {}'.format(loc(32370),provider,loc(32371), xbmc.LOGINFO))
+    notify(addon_name, '{} {} {}'.format(loc(32370),provider,loc(32371)))
+    log('{} {} {}'.format(loc(32370),provider,loc(32371)))
     time.sleep(4)
 
     if (os.path.isfile(magentaDE_channels_warnings) or os.path.isfile(magentaDE_genres_warnings)):
-        notify(provider, '{}'.format(loc(32372)), icon=xbmcgui.NOTIFICATION_WARNING)
+        notify(provider, '{}'.format(loc(32372)))
         time.sleep(3)
 
     ## Delete old Tempfiles, not needed any more

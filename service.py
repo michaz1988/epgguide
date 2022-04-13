@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import xbmc
-import xbmcaddon
-import xbmcgui
 import time, tools
 from tools import datapath, temppath, log, notify, addon_name, addon_version, loc
 from datetime import datetime
@@ -20,18 +17,8 @@ import sys
 import platform
 import importlib
 
-ADDON = xbmcaddon.Addon(id="service.takealug.epg-grabber")
-
 thread_temppath = os.path.join(temppath, "multithread")
 machine = platform.machine()
-
-def getAddonSetting(setting):
-    value = True if xbmcaddon.Addon(id="service.takealug.epg-grabber").getSetting(setting).upper() == 'TRUE' else False
-    return value
-
-def getAddonCronSetting(setting):
-    value = xbmcaddon.Addon(id="service.takealug.epg-grabber").getSetting(setting)
-    return value
 
 ## Read Global Settings
 storage_path = os.path.join(datapath, "storage")
@@ -96,18 +83,6 @@ grabber_cron = os.path.join(datapath, 'grabber_cron.json')
 grabber_cron_tmp = os.path.join(temppath, 'grabber_cron.json')
 xmltv_dtd = os.path.join(datapath, 'xmltv.dtd')
 
-## Make OSD Notify Messages
-OSD = xbmcgui.Dialog()
-
-## MAKE an Monitor
-class Monitor(xbmc.Monitor):
-    def __init__(self):
-        xbmc.Monitor.__init__(self)
-        self.settingsChanged = False
-
-    def onSettingsChanged(self):
-        self.settingsChanged = True
-monitor = Monitor()
 
 def copy_guide_to_destination():
     done = tools.copy(guide_temp, guide_dest)
@@ -125,17 +100,17 @@ def copy_guide_to_destination():
             tools.copy(grabber_cron_tmp, grabber_cron)
             time.sleep(3)
             tools.delete(grabber_cron_tmp)
-            notify(addon_name, loc(32350), icon=xbmcgui.NOTIFICATION_INFO)
-            log(loc(32350), xbmc.LOGINFO)
+            notify(addon_name, loc(32350))
+            log(loc(32350))
         except:
-            log('Worker can´t read cron File, creating new File...'.format(loc(32356)), xbmc.LOGERROR)
+            log('Worker can´t read cron File, creating new File...'.format(loc(32356)))
             with open(grabber_cron, 'w', encoding='utf-8') as f:
                 f.write(json.dumps({'last_download': str(int(time.time())), 'next_download': str(int(time.time()) + 86400)}))
-            notify(addon_name, loc(32350), icon=xbmcgui.NOTIFICATION_INFO)
-            log(loc(32350), xbmc.LOGINFO)
+            notify(addon_name, loc(32350))
+            log(loc(32350))
     else:
-        notify(addon_name, loc(32351), icon=xbmcgui.NOTIFICATION_ERROR)
-        log(loc(32351), xbmc.LOGERROR)
+        notify(addon_name, loc(32351))
+        log(loc(32351))
 
 def check_channel_dupes():
     with open(guide_temp, encoding='utf-8') as f:
@@ -150,9 +125,8 @@ def check_channel_dupes():
         dupes = ''.join(dupe)
 
         if (not dupes == ''):
-            log('{} {}'.format(loc(32400), dupes), xbmc.LOGERROR)
-            dialog = xbmcgui.Dialog()
-            ok = dialog.ok('-]ERROR[- {}'.format(loc(32400)), dupes)
+            log('{} {}'.format(loc(32400), dupes))
+            ok = True
             if ok:
                 return False
             return False
@@ -382,21 +356,21 @@ def write_to_sock():
             epg = open(guide_temp, 'rb')
             epg_data = epg.read()
             try:
-                log('{} {}'.format(loc(32380), tvh_local_sock), xbmc.LOGINFO)
-                notify(addon_name, loc(32380), icon=xbmcgui.NOTIFICATION_INFO)
+                log('{} {}'.format(loc(32380), tvh_local_sock))
+                notify(addon_name, loc(32380))
                 sock.connect(tvh_local_sock)
                 sock.sendall(epg_data)
-                log('{} {}'.format(sock.recv, tvh_local_sock), xbmc.LOGINFO)
+                log('{} {}'.format(sock.recv, tvh_local_sock))
             except socket.error as e:
-                notify(addon_name, '{} {}'.format(loc(32379), e), icon=xbmcgui.NOTIFICATION_ERROR)
-                log('{} {}'.format(loc(32379), e), xbmc.LOGERROR)
+                notify(addon_name, '{} {}'.format(loc(32379), e))
+                log('{} {}'.format(loc(32379), e))
             finally:
                 sock.close()
                 epg.close()
         else:
             ok = dialog.ok(loc(32119), loc(32409))
             if ok:
-                log(loc(32409), xbmc.LOGERROR)
+                log(loc(32409))
 
 def worker(timeswitch_1, timeswitch_2, timeswitch_3):
     initiate_download = False
@@ -408,7 +382,7 @@ def worker(timeswitch_1, timeswitch_2, timeswitch_3):
             next_download = cron['next_download']
             last_download = cron['last_download']
     except:
-        log('Worker can´t read cron File, creating new File...'.format(loc(32356)), xbmc.LOGERROR)
+        log('Worker can´t read cron File, creating new File...'.format(loc(32356)))
         with open(grabber_cron, 'w', encoding='utf-8') as f:
             f.write(json.dumps({'last_download': str(int(time.time())), 'next_download': str(int(time.time()) + 86400)}))
         with open(grabber_cron, 'r', encoding='utf-8') as f:
@@ -416,22 +390,22 @@ def worker(timeswitch_1, timeswitch_2, timeswitch_3):
             next_download = cron['next_download']
             last_download = cron['last_download']
 
-    log('{} {}'.format(loc(32352), datetime.fromtimestamp(int(last_download)).strftime('%d.%m.%Y %H:%M')), xbmc.LOGDEBUG)
+    log('{} {}'.format(loc(32352), datetime.fromtimestamp(int(last_download)).strftime('%d.%m.%Y %H:%M')))
 
     if (int(next_download) > int(last_download)):
-        log('{} {}'.format(loc(32353), datetime.fromtimestamp(int(next_download)).strftime('%d.%m.%Y %H:%M')), xbmc.LOGDEBUG)
+        log('{} {}'.format(loc(32353), datetime.fromtimestamp(int(next_download)).strftime('%d.%m.%Y %H:%M')))
 
     if int(next_download) < int(time.time()):
         # suggested download time has passed (e.g. system was offline) or time is now, download epg
         # and set a new timestamp for the next download
-        log('{} {}'.format(loc(32352), datetime.fromtimestamp(int(last_download)).strftime('%d.%m.%Y %H:%M')), xbmc.LOGINFO)
-        log('{} {}'.format(loc(32353), datetime.fromtimestamp(int(next_download)).strftime('%d.%m.%Y %H:%M')), xbmc.LOGINFO)
-        log('{}'.format(loc(32356)), xbmc.LOGINFO)
+        log('{} {}'.format(loc(32352), datetime.fromtimestamp(int(last_download)).strftime('%d.%m.%Y %H:%M')))
+        log('{} {}'.format(loc(32353), datetime.fromtimestamp(int(next_download)).strftime('%d.%m.%Y %H:%M')))
+        log('{}'.format(loc(32356)))
         initiate_download = True
 
     ## If next_download < last_download, initiate an Autodownload
     if initiate_download:
-        notify(addon_name, loc(32357), icon=xbmcgui.NOTIFICATION_INFO)
+        notify(addon_name, loc(32357))
         run_grabber()
         ## Update Cron Settings
         with open(grabber_cron, 'r', encoding='utf-8') as f:
@@ -486,37 +460,26 @@ def check_startup():
     tools.makedir(thread_temppath)
 
     if storage_path == 'choose':
-        notify(addon_name, loc(32359), icon=xbmcgui.NOTIFICATION_ERROR)
-        log(loc(32359), xbmc.LOGERROR)
+        notify(addon_name, loc(32359))
+        log(loc(32359))
         return False
 
     if not enabled_grabber:
-        notify(addon_name, loc(32360), icon=xbmcgui.NOTIFICATION_ERROR)
-        log(loc(32360), xbmc.LOGERROR)
+        notify(addon_name, loc(32360))
+        log(loc(32360))
         return False
 
     if use_local_sock:
         socked_string = '.sock'
         if not re.search(socked_string, tvh_local_sock):
-            notify(addon_name, loc(32378), icon=xbmcgui.NOTIFICATION_ERROR)
-            log(loc(32378), xbmc.LOGERROR)
+            notify(addon_name, loc(32378))
+            log(loc(32378))
             return False
 
-    #if enable_multithread:
-        #if (not machine == 'x86_64' and not machine == 'armv7l' and not machine == 'armv8l'):
-            #log(machine, xbmc.LOGERROR)
-            #dialog = xbmcgui.Dialog()
-            #log(loc(32381), xbmc.LOGERROR)
-            #ok = dialog.ok(addon_name, loc(32381))
-            #if ok:
-                #return False
-            #return False
-
     if enable_multithread:
-        log(machine, xbmc.LOGERROR)
-        dialog = xbmcgui.Dialog()
-        log('Multithreading is currently under Kodi 19 broken, please disable it', xbmc.LOGERROR)
-        ok = dialog.ok(addon_name, 'Multithreading is currently under Kodi 19 broken, please disable it')
+        log(machine)
+        log('Multithreading is currently under Kodi 19 broken, please disable it')
+        ok = True
         if ok:
             return False
         return False
@@ -534,53 +497,20 @@ def check_startup():
     if not check_internet():
         retries = 12
         while retries > 0:
-            log(loc(32385), xbmc.LOGINFO)
-            notify(addon_name, loc(32385), icon=xbmcgui.NOTIFICATION_INFO)
+            log(loc(32385))
+            notify(addon_name, loc(32385))
             time.sleep(5)
             if check_internet():
-                log(loc(32386), xbmc.LOGINFO)
-                notify(addon_name, loc(32386), icon=xbmcgui.NOTIFICATION_INFO)
+                log(loc(32386))
+                notify(addon_name, loc(32386))
                 return True
             else:
                 retries -= 1
         if retries == 0:
-            log(loc(32387), xbmc.LOGERROR)
-            notify(addon_name, loc(32387), icon=xbmcgui.NOTIFICATION_ERROR)
+            log(loc(32387))
+            notify(addon_name, loc(32387))
             return False
     else:
         return True
 
 run_grabber()
-
-"""if __name__ == '__main__':
-    if check_startup():
-        try:
-            dialog = xbmcgui.Dialog()
-            if sys.argv[1] == 'manual_download':
-                if not auto_download:
-                    ret = dialog.yesno('Takealug EPG Grabber', loc(32401))
-                    if ret:
-                        notify(addon_name, loc(32376), icon=xbmcgui.NOTIFICATION_INFO)
-                        run_grabber()
-                elif auto_download:
-                    ok = dialog.ok(addon_name, loc(32414))
-                    if ok:
-                        pass
-                    pass
-            if sys.argv[1] == 'write_to_sock':
-                ret = dialog.yesno(loc(32119), loc(32408))
-                if ret:
-                    write_to_sock()
-
-        except IndexError:
-            while not monitor.waitForAbort(30):
-                if monitor.settingsChanged:
-                    log('Settings changed Reloading', xbmc.LOGINFO)
-                    auto_download = getAddonSetting('auto_download')
-                    if auto_download:
-                        timeswitch_1 = int(getAddonCronSetting('timeswitch_1'))
-                        timeswitch_2 = int(getAddonCronSetting('timeswitch_2'))
-                        timeswitch_3 = int(getAddonCronSetting('timeswitch_3'))
-                    monitor.settingsChanged = False
-                if auto_download:
-                    worker(timeswitch_1, timeswitch_2, timeswitch_3)"""

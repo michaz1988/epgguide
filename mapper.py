@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
-import xbmc, xbmcaddon, xbmcgui
 import json
 import os
 from tools import datapath, temppath, log, notify, addon_name, addon_version, loc
-
-ADDON = xbmcaddon.Addon(id="service.takealug.epg-grabber")
-
-# Make OSD Notify Messages
-OSD = xbmcgui.Dialog()
 
 def map_genres(items_genre,genre_format,genres_json,genres_warnings_tmp, lang):
     if genre_format == 'eit':
@@ -63,7 +57,7 @@ def create_channel_warnings(channels_warnings_tmp, channels_warnings, provider, 
             f.write(channel_pull)
         ## Print Content of Channel Warnings Textfile in Kodi LOG
         warnings_channels = open(channels_warnings, "r", encoding='utf-8').read()
-        log('{} {}'.format(provider,warnings_channels), xbmc.LOGINFO)
+        log('{} {}'.format(provider,warnings_channels))
 
 def create_genre_warnings(genres_warnings_tmp, genres_warnings, provider, genre_pull):
     ## Create Genre Warnings Textfile
@@ -80,7 +74,7 @@ def create_genre_warnings(genres_warnings_tmp, genres_warnings, provider, genre_
             f.write(genre_pull)
         ## Print Content of Genres Warnings Textfile in Kodi LOG
         warnings_genres = open(genres_warnings, "r", encoding='utf-8').read()
-        log('{} {}'.format(provider, warnings_genres), xbmc.LOGINFO)
+        log('{} {}'.format(provider, warnings_genres))
 
 def map_stars(item_starrating):
     if int(item_starrating) <= int(9):

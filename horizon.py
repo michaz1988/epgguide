@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import xbmc, xbmcaddon, xbmcgui
 from tools import datapath, temppath, log, notify, addon_name, addon_version,loc
 import json, tools, time
 import os
@@ -11,7 +10,6 @@ import time
 from datetime import timedelta
 from datetime import datetime
 import xml_structure
-import channel_selector
 import mapper
 import filesplit
 
@@ -61,8 +59,6 @@ def get_settings(grabber):
 
     return provider_temppath, hzn_genres_json, hzn_channels_json, hzn_genres_warnings_tmp, hzn_genres_warnings,hzn_channels_warnings_tmp, hzn_channels_warnings, days_to_grab, episode_format, channel_format, genre_format, hzn_chlist_provider_tmp, hzn_chlist_provider, hzn_chlist_selected, provider, lang
 
-ADDON = xbmcaddon.Addon(id="service.takealug.epg-grabber")
-
 ## Enable Multithread
 enable_multithread = True if ADDON.getSetting('enable_multithread').upper() == 'TRUE' else False
 if enable_multithread:
@@ -74,9 +70,6 @@ if enable_multithread:
 ## MAPPING Variables Thx @ sunsettrack4
 hzn_genres_url = 'https://raw.githubusercontent.com/sunsettrack4/config_files/master/hzn_genres.json'
 hzn_channels_url = 'https://raw.githubusercontent.com/sunsettrack4/config_files/master/hzn_channels.json'
-
-# Make OSD Notify Messages
-OSD = xbmcgui.Dialog()
 
 def get_epgLength(days_to_grab):
     # Calculate Date and Time in Microsoft Timestamp
@@ -177,7 +170,6 @@ def select_channels(grabber):
 
     ## Download chlist_provider.json
     get_channellist(grabber, hzndict, hzn_chlist_provider_tmp, hzn_chlist_provider)
-    dialog = xbmcgui.Dialog()
 
     with open(hzn_chlist_provider, 'r', encoding='utf-8') as o:
         provider_list = json.load(o)
@@ -186,7 +178,7 @@ def select_channels(grabber):
         selected_list = json.load(s)
 
     ## Start Channel Selector
-    user_select = channel_selector.select_channels(provider, provider_list, selected_list)
+    user_select = True
 
     if user_select is not None:
         with open(hzn_chlist_selected, 'w') as f:
@@ -196,9 +188,9 @@ def select_channels(grabber):
             if valid is True:
                 ok = dialog.ok(provider, "Neue Kanalliste abgespeichert!")
                 if ok:
-                    log("Neue Kanalliste abgespeichert!", xbmc.LOGINFO)
+                    log("Neue Kanalliste abgespeichert!")
             elif valid is False:
-                log("Du musst mindestens einen Kanal auswählen", xbmc.LOGINFO)
+                log("Du musst mindestens einen Kanal auswählen")
                 yn = OSD.yesno(provider, "Du musst mindestens einen Kanal auswählen")
                 if yn:
                     select_channels(grabber)
@@ -210,9 +202,9 @@ def select_channels(grabber):
         if valid is True:
             ok = dialog.ok(provider, "Kanalliste unverändert!")
             if ok:
-                log("Kanalliste unverändert!", xbmc.LOGINFO)
+                log("Kanalliste unverändert!")
         elif valid is False:
-            log("Du musst mindestens einen Kanal auswählen", xbmc.LOGINFO)
+            log("Du musst mindestens einen Kanal auswählen")
             yn = OSD.yesno(provider, "Du musst mindestens einen Kanal auswählen")
             if yn:
                 select_channels(grabber)
@@ -249,9 +241,9 @@ def download_multithread(thread_temppath, download_threads, grabber, hzn_chlist_
         multi = True
         needed_threads = sum([len(files) for r, d, files in os.walk(thread_temppath)])
         items_to_download = str(len(selected_list['channellist']))
-        log('{} {} {} '.format(provider, items_to_download, "Sender Daten die heruntergeladen werden müssen..."), xbmc.LOGINFO)
-        pDialog = xbmcgui.DialogProgressBG()
-        log('{} Multithread({}) Mode'.format(provider, needed_threads), xbmc.LOGINFO)
+        log('{} {} {} '.format(provider, items_to_download, "Sender Daten die heruntergeladen werden müssen..."))
+
+        log('{} Multithread({}) Mode'.format(provider, needed_threads))
         notify('{} {} '.format("Lade Senderdaten für", provider), '{} {}'.format('100', "Prozent verbleibend"))
 
         jobs = []
@@ -274,10 +266,10 @@ def download_multithread(thread_temppath, download_threads, grabber, hzn_chlist_
                 percent_completed = int(100) * int(items) / int(items_to_download)
                 notify(int(percent_completed), '{} {} '.format("Lade Senderdaten für", last_line), '{} {} {}'.format(int(percent_remain), "Prozent verbleibend", provider))
                 if int(items) == int(items_to_download):
-                    log('{} {}'.format(provider, "Senderdaten heruntergeladen!"), xbmc.LOGINFO)
+                    log('{} {}'.format(provider, "Senderdaten heruntergeladen!"))
                     break
             j.join()
-        #pDialog.close()
+        #
         for file in os.listdir(thread_temppath): tools.delete(os.path.join(thread_temppath, file))
     else:
         multi = False
@@ -291,8 +283,7 @@ def download_thread(grabber, hzn_chlist_selected, multi, list, provider, provide
 
     if not multi:
         items_to_download = str(len(selected_list['channellist']))
-        log('{} {} {} '.format(provider, items_to_download, "Sender Daten die heruntergeladen werden müssen..."), xbmc.LOGINFO)
-        pDialog = xbmcgui.DialogProgressBG()
+        log('{} {} {} '.format(provider, items_to_download, "Sender Daten die heruntergeladen werden müssen..."))
         notify('{} {} '.format("Lade Senderdaten für", provider), '{} {}'.format('100', "Prozent verbleibend"))
 
     for user_item in selected_list['channellist']:
@@ -317,14 +308,14 @@ def download_thread(grabber, hzn_chlist_selected, multi, list, provider, provide
             percent_completed = int(100) * int(items) / int(items_to_download)
             notify(int(percent_completed), '{} {} '.format("Lade Senderdaten für", channel_name), '{} {} {}'.format(int(percent_remain), "Prozent verbleibend", provider))
             if int(items) == int(items_to_download):
-                log('{} {}'.format(provider, "Senderdaten heruntergeladen!"), xbmc.LOGINFO)
+                log('{} {}'.format(provider, "Senderdaten heruntergeladen!"))
                 break
     if not multi:
         pass
 
 def create_xml_channels(grabber):
     provider_temppath, hzn_genres_json, hzn_channels_json, hzn_genres_warnings_tmp, hzn_genres_warnings, hzn_channels_warnings_tmp, hzn_channels_warnings, days_to_grab, episode_format, channel_format, genre_format, hzn_chlist_provider_tmp, hzn_chlist_provider, hzn_chlist_selected, provider, lang = get_settings(grabber)
-    log('{} {}'.format(provider, "Erstelle XML Kanäle..."), xbmc.LOGINFO)
+    log('{} {}'.format(provider, "Erstelle XML Kanäle..."))
     if channel_format == 'rytec':
         ## Save hzn_channels.json to Disk
         rytec_file = requests.get(hzn_channels_url).json()
@@ -336,7 +327,7 @@ def create_xml_channels(grabber):
 
     items_to_download = str(len(selected_list['channellist']))
     items = 0
-    pDialog = xbmcgui.DialogProgressBG()
+
     notify('{} {} '.format("Erstelle XML Kanäle für",provider), '{} {}'.format('100',"Prozent verbleibend"))
 
     ## Create XML Channels Provider information
@@ -351,7 +342,7 @@ def create_xml_channels(grabber):
         channel_id = channel_name
         notify(int(percent_completed), '{} {} '.format("Erstelle XML Kanäle für",channel_name),'{} {} {}'.format(int(percent_remain),"Prozent verbleibend",provider))
         if str(percent_completed) == str(100):
-            log('{} {}'.format(provider,"XML Kanäle erstellt!"), xbmc.LOGINFO)
+            log('{} {}'.format(provider,"XML Kanäle erstellt!"))
 
         ## Map Channels
         if not channel_id == '':
@@ -359,14 +350,13 @@ def create_xml_channels(grabber):
 
         ## Create XML Channel Information with provided Variables
         xml_structure.xml_channels(channel_name, channel_id, channel_icon, lang)
-    #pDialog.close()
 
 def create_xml_broadcast(grabber, enable_rating_mapper, thread_temppath, download_threads):
     provider_temppath, hzn_genres_json, hzn_channels_json, hzn_genres_warnings_tmp, hzn_genres_warnings, hzn_channels_warnings_tmp, hzn_channels_warnings, days_to_grab, episode_format, channel_format, genre_format, hzn_chlist_provider_tmp, hzn_chlist_provider, hzn_chlist_selected, provider, lang = get_settings(grabber)
     hzndict = get_hzndict(grabber)
 
     download_multithread(thread_temppath, download_threads,grabber, hzn_chlist_selected, provider, provider_temppath, hzndict, days_to_grab)
-    log('{} {}'.format(provider,"Erstelle XML EPG Senderdaten..."), xbmc.LOGINFO)
+    log('{} {}'.format(provider,"Erstelle XML EPG Senderdaten..."))
 
     if genre_format == 'eit':
         ## Save hzn_genres.json to Disk
@@ -379,7 +369,6 @@ def create_xml_broadcast(grabber, enable_rating_mapper, thread_temppath, downloa
 
     items_to_download = str(len(selected_list['channellist']))
     items = 0
-    pDialog = xbmcgui.DialogProgressBG()
     notify('{} {} '.format("Erstelle XML Senderdaten für",provider), '{} Prozent verbleibend'.format('100'))
 
     ## Create XML Broadcast Provider information
@@ -394,7 +383,7 @@ def create_xml_broadcast(grabber, enable_rating_mapper, thread_temppath, downloa
         channel_id = channel_name
         notify(int(percent_completed), '{} {} '.format("Erstelle XML Senderdaten für",channel_name),'{} {} {}'.format(int(percent_remain),"Prozent verbleibend",provider))
         if str(percent_completed) == str(100):
-            log('{} {}'.format(provider,"XML EPG Senderdaten erstellt!"), xbmc.LOGINFO)
+            log('{} {}'.format(provider,"XML EPG Senderdaten erstellt!"))
 
         broadcast_files = os.path.join(provider_temppath, '{}_broadcast.json'.format(contentID))
         with open(broadcast_files, 'r', encoding='utf-8') as b:
@@ -515,7 +504,7 @@ def create_xml_broadcast(grabber, enable_rating_mapper, thread_temppath, downloa
 
         except (KeyError, IndexError):
             log('{} {} {} {} {} {}'.format(provider,"Keine Programminformationen für Kanal",channel_name,"mit der ID",contentID,"vorhanden!"))
-    pDialog.close()
+
 
     ## Create Channel Warnings Textile
     channel_pull = '\nPlease Create an Pull Request for Missing Rytec Id´s to https://github.com/sunsettrack4/config_files/blob/master/hzn_channels.json\n'
@@ -525,11 +514,11 @@ def create_xml_broadcast(grabber, enable_rating_mapper, thread_temppath, downloa
     genre_pull = '\nPlease Create an Pull Request for Missing EIT Genres to https://github.com/sunsettrack4/config_files/blob/master/hzn_genres.json\n'
     mapper.create_genre_warnings(hzn_genres_warnings_tmp, hzn_genres_warnings, provider, genre_pull)
 
-    notify(addon_name, '{} {} {}'.format("EPG vom Provider",provider,"Gegrabbt!"), icon=xbmcgui.NOTIFICATION_INFO)
-    log('{} {} {}'.format("EPG vom Provider",provider,"Gegrabbt!", xbmc.LOGINFO))
+    notify(addon_name, '{} {} {}'.format("EPG vom Provider",provider,"Gegrabbt!"))
+    log('{} {} {}'.format("EPG vom Provider",provider,"Gegrabbt!"))
 
     if (os.path.isfile(hzn_channels_warnings) or os.path.isfile(hzn_genres_warnings)):
-        notify(provider, '{}'.format("Warnungen gefunden, bitte überprüfe das Kodilog"), icon=xbmcgui.NOTIFICATION_WARNING)
+        notify(provider, '{}'.format("Warnungen gefunden, bitte überprüfe das Kodilog"))
 
     ## Delete old Tempfiles, not needed any more
     for file in os.listdir(provider_temppath): tools.delete(os.path.join(provider_temppath, file))

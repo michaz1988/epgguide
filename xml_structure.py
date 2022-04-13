@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-import xbmc, xbmcaddon
 import os
 import datetime 
 import mapper
 from tools import datapath, temppath, addon_name, addon_version, loc
-
-ADDON = xbmcaddon.Addon(id="service.takealug.epg-grabber")
 
 now = datetime.datetime.now()
 guide_temp = os.path.join(datapath, 'guide.xml')

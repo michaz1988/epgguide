@@ -1,4 +1,4 @@
-import os, shutil, xbmcgui, xbmc
+import os, shutil
 
 addon_name = "Takealug EPG Grabber"
 addon_version = "1.1.3+matrix"
@@ -13,11 +13,11 @@ def loc(id):
 		if 'msgctxt "#{}"'.format(str(id)) in line:
 			return file[number+2].split('"')[1]
 
-def notify(title, message, icon=xbmcgui.NOTIFICATION_INFO):
+def notify(title, message):
     print(title, message)
 
 ## Make a debug logger
-def log(message, loglevel=xbmc.LOGDEBUG):
+def log(message):
 	with open(os.path.join(datapath, 'log.txt'), 'a') as k:
 		k.write('[{} {}] {}'.format(addon_name, addon_version, message)+"\n")
 
