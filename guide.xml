@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tv SYSTEM "xmltv.dtd">
+<!-- EPG XMLTV FILE CREATED BY Take-a-LUG TEAM- (c) 2020 Bastian Kleinschmidt -->
+<!-- created on 2022-04-13 23:26:54.130200 -->
+<tv generator-info-name="Takealug EPG Grabber Ver. 1.1.3+matrix" generator-info-url="https://github.com/DeBaschdi/service.takealug.epg-grabber">
+
+<!--  HORIZON (DE)  CHANNEL LIST -->
+    <channel id="Silverline Movie Channel">
+        <display-name lang="de">Silverline Movie Channel</display-name>
+        <icon src="http://staticqbr-de-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/n_silverline.SV_09999_58109.png?style=content-station-logo-large" />
+    </channel>
+
+<!--  HORIZON (AT)  CHANNEL LIST -->
+    <channel id="Fix &amp; Foxi">
+        <display-name lang="at">Fix &amp; Foxi</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/3044.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="gotv">
+        <display-name lang="at">gotv</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1057.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="ORF 2 EUROPE">
+        <display-name lang="at">ORF 2 EUROPE</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/4914.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="ORF 1">
+        <display-name lang="at">ORF 1</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1006.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="ATV">
+        <display-name lang="at">ATV</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1013.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="PULS 4">
+        <display-name lang="at">PULS 4</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7089.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="Servus TV">
+        <display-name lang="at">Servus TV</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7115.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="ORF III">
+        <display-name lang="at">ORF III</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/3042.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="ATV2">
+        <display-name lang="at">ATV2</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7053.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="PULS24">
+        <display-name lang="at">PULS24</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/2061.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="Sat.1 Gold">
+        <display-name lang="at">Sat.1 Gold</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/4647.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="ORF Sport+">
+        <display-name lang="at">ORF Sport+</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/7079.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="BR Fernsehen">
+        <display-name lang="at">BR Fernsehen</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1031.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="WDR Fernsehen">
+        <display-name lang="at">WDR Fernsehen</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1027.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="MDR Fernsehen">
+        <display-name lang="at">MDR Fernsehen</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1020.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="SWR Fernsehen">
+        <display-name lang="at">SWR Fernsehen</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1029.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="NDR Fernsehen">
+        <display-name lang="at">NDR Fernsehen</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1011.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="HR">
+        <display-name lang="at">HR</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1017.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="RBB Fernsehen">
+        <display-name lang="at">RBB Fernsehen</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/1018.f.png?style=content-station-logo-large" />
+    </channel>
+    <channel id="Nick">
+        <display-name lang="at">Nick</display-name>
+        <icon src="https://staticqbr-at-prod.prod.cdn.dmdsdp.com/image-service/ImagesEPG/EventImages/8458.f.png?style=content-station-logo-large" />
+    </channel>

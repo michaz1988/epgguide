@@ -60,7 +60,7 @@ def get_settings(grabber):
     return provider_temppath, hzn_genres_json, hzn_channels_json, hzn_genres_warnings_tmp, hzn_genres_warnings,hzn_channels_warnings_tmp, hzn_channels_warnings, days_to_grab, episode_format, channel_format, genre_format, hzn_chlist_provider_tmp, hzn_chlist_provider, hzn_chlist_selected, provider, lang
 
 ## Enable Multithread
-enable_multithread = True
+enable_multithread = False
 if enable_multithread:
     try:
         from multiprocessing import Process
@@ -249,7 +249,7 @@ def download_multithread(thread_temppath, download_threads, grabber, hzn_chlist_
         jobs = []
         Process = []
         for thread in range(0, int(needed_threads)):
-            p = Process(target=download_thread, args=(grabber, '{}_{}.json'.format(splitname, int(thread)), multi, list, provider, provider_temppath, hzndict, days_to_grab, starttime, endtime, ))
+            p = Process(target=download_thread, args=(grabber, '{}_{}.json'.format(splitname, int(thread)), multi, list, provider, provider_temppath, hzndict, days_to_grab, starttime, endtime))
             jobs.append(p)
             #p.start()
         for j in jobs:

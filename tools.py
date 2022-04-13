@@ -13,7 +13,7 @@ def loc(id):
 		if 'msgctxt "#{}"'.format(str(id)) in line:
 			return file[number+2].split('"')[1]
 
-def notify(title, message):
+def notify(title, message, *arg):
     print(title, message)
 
 ## Make a debug logger
