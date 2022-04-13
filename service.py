@@ -36,7 +36,7 @@ enable_multithread = False
 
 ## Get Enabled Grabbers
 # Divers
-enable_grabber_magentaDE = False
+enable_grabber_magentaDE = True
 enable_grabber_tvsDE = False
 enable_grabber_swcCH = False
 # Horizon
