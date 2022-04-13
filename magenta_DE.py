@@ -301,6 +301,7 @@ def download_thread(magentaDE_chlist_selected, multi, list, starttime, endtime):
                 log('{} {}'.format(provider, loc(32363)))
                 break
     if not multi:
+    	pass
         
 
 
