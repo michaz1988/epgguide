@@ -89,8 +89,8 @@ def copy_guide_to_destination():
     if done:
         try:
             tools.delete(guide_temp)
-            tools.delete(os.path.join(datapath, '__pycache__')
-            tools.delete(os.path.join(datapath, 'log.txt')
+            tools.delete(os.path.join(datapath, '__pycache__'))
+            tools.delete(os.path.join(datapath, 'log.txt'))
             tools.delete(storage_path)
             ## Write new setting last_download
             with open(grabber_cron, 'r', encoding='utf-8') as f:
