@@ -30,7 +30,7 @@ def copy(source, destination):
 		
 def comp(source, destination):
 	try:
-		with open(source, 'rb') as f_in, gzip.open(destination+".gz", 'wb') as f_out:
+		with open(source, 'rb') as f_in, gzip.open(destination, 'wb') as f_out:
 			f_out.writelines(f_in)
 		return True
 	except:
