@@ -3,6 +3,7 @@ import os
 import datetime
 from tools import datapath, temppath, log, notify, addon_name, addon_version, loc
 import mapper
+now = datetime.datetime.now()
 
 def xml_start():
     copyright = '<?xml version="1.0" encoding="UTF-8" ?>\n<!DOCTYPE tv SYSTEM "xmltv.dtd">\n<!-- EPG XMLTV FILE CREATED BY Take-a-LUG TEAM- (c) 2020 Bastian Kleinschmidt -->\n<!-- created on {} -->\n<tv generator-info-name="Takealug EPG Grabber Ver. {}" generator-info-url="https://github.com/DeBaschdi/service.takealug.epg-grabber">\n'.format(str(now), addon_version)
