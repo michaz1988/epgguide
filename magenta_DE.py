@@ -37,7 +37,7 @@ magentaDE_channels_warnings_tmp = os.path.join(provider_temppath, 'magentaDE_cha
 magentaDE_channels_warnings = os.path.join(temppath, 'magentaDE_channels_warnings.txt')
 
 ## Read Magenta DE Settings
-days_to_grab = 7
+days_to_grab = 2
 episode_format = "onscreen"
 channel_format = 'provider'
 genre_format = "provider"

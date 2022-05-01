@@ -44,7 +44,7 @@ def get_settings(grabber):
     hzn_channels_warnings = os.path.join(temppath, hzndict[grabber][4])
 
     ## Read Horizon Settings
-    days_to_grab = 7
+    days_to_grab = 2
     episode_format = "onscreen"
     channel_format = 'provider'
     genre_format = "provider"
